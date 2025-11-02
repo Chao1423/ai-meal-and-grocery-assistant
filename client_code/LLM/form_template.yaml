@@ -1,27 +1,27 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
 components:
-- type: ColumnPanel
-  properties: {col_widths: '{}'}
-  name: content_panel
+- components: []
   layout_properties: {slot: default}
-  components: []
-- type: FlowPanel
-  properties: {}
-  name: navbar_links
-  layout_properties: {slot: nav-right}
-- name: text_box_1
-  properties: {text: LLM Style Guide Editor, background: 'theme:Primary'}
-  type: TextBox
-  layout_properties: {slot: title}
-- name: column_panel_1
-  properties: {background: 'theme:Secondary'}
+  name: content_panel
+  properties: {col_widths: '{}'}
   type: ColumnPanel
-  layout_properties: {slot: left-nav}
-  components:
-  - name: column_panel_2
+- layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+- layout_properties: {slot: title}
+  name: text_box_1
+  properties: {background: 'theme:Primary', text: LLM Style Guide Editor}
+  type: TextBox
+- components:
+  - layout_properties: {grid_position: 'WUVTNF,TURPLM'}
+    name: column_panel_2
     properties: {}
     type: ColumnPanel
-    layout_properties: {grid_position: 'WUVTNF,TURPLM'}
+  layout_properties: {slot: left-nav}
+  name: column_panel_1
+  properties: {background: 'theme:Secondary'}
+  type: ColumnPanel
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true

@@ -1,9 +1,11 @@
 unique_ids:
-  forms:
-    LLM: ZY4SOYILBW2423SSO6ES44O2NL5ZN2NV
-  modules: {}
-  server_modules: {}
   assets:
+    Cook & Gorcery.png: '1762110653471971590126454.6785'
     Logo.png: '1697562377866173989709476.2406'
     standard-page.html: JNPIPNZRSQNLA2ZXDQLS3LSRW4MHLTJ4
     theme.css: SYGBO4NVO5XXV4B6JBGG3YVHMEHOQGOS
+  forms:
+    LLM: ZY4SOYILBW2423SSO6ES44O2NL5ZN2NV
+  modules: {}
+  scripts: {}
+  server_modules: {}
