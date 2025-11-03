@@ -10,7 +10,19 @@ import anvil.server
 
 class LLM(LLMTemplate):
   def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Any code you write here will run before the form opens.
+  def generate_button_click(self, **event_args):
+    """Triggered when the user clicks 'Generate Suggestions'"""
+    ingredients = self.ingredients_box.text.strip()
+    if not ingredients:
+      self.output_area.text = "Please enter your available ingredients first!"
+      return
+
+    self.output_area.text = "Generating meal ideas... please wait."
+
+    try:
+      result = anvil.server.call('suggest_meals', ingredients)
+      self.output_area.text = result
+    except Exception as e:
+      self.output_area.text = f"An error occurred: {e}"

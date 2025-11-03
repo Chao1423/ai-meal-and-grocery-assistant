@@ -1,10 +1,16 @@
 allow_embedding: false
 db_schema:
-  table_2:
+  config:
     client: none
-    columns: []
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: name
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: value
+      type: string
     server: full
-    title: Table 2
+    title: config
   users:
     client: none
     columns:
