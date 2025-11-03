@@ -8,4 +8,5 @@ unique_ids:
     LLM: ZY4SOYILBW2423SSO6ES44O2NL5ZN2NV
   modules: {}
   scripts: {}
-  server_modules: {}
+  server_modules:
+    ServerModule1: '176216303348571347098680.49371'
