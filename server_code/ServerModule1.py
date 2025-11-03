@@ -46,13 +46,13 @@ Example:
     "food_name": "Vegan Fried Rice",
     "recipe": "Stir-fry rice with tofu and vegetables.",
     "to_buy": "Soy sauce, sesame oil",
-    "link": "https://www.allrecipes.com/vegan-fried-rice"
+    "link": "https://www.allrecipes.com/search?q=Vegan+Fried+Rice"
   }},
   {{
     "food_name": "Tomato Pasta",
     "recipe": "Boil pasta and mix with tomato sauce.",
-    "to_buy": "Basil, olive oil",
-    "link": "https://www.allrecipes.com/tomato-pasta"
+    "to_buy": "Basil, olive oil, garlic",
+    "link": "https://www.allrecipes.com/search?q=Tomato+Pasta"
   }}
 ]
 Do not include any explanations, introductions, or text outside the JSON.

@@ -1,27 +1,35 @@
 components:
 - data_bindings:
+  - {code: 'self.item[''recipe'']', property: text, writeback: false}
+  layout_properties: {column: VJQQOR}
+  name: label_recipe
+  properties: {text: 'self.item[''recipe'']'}
+  type: Label
+- data_bindings:
   - {code: 'self.item[''food_name'']', property: tooltip, writeback: false}
   - {code: 'self.item[''food_name'']', property: text, writeback: false}
-  layout_properties: {}
+  layout_properties: {column: JKSDUP}
   name: label_food_name
   properties: {text: label_food_name}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''recipe'']', property: text, writeback: false}
-  layout_properties: {column: 'null'}
-  name: label_recipe
-  properties: {text: 'self.item[''recipe'']'}
+  - {code: 'self.item[''to_buy'']', property: text, writeback: false}
+  layout_properties: {column: OJLQEN}
+  name: label_to_buy
+  properties: {text: 'self.item[''to_buy'']'}
   type: Label
-- layout_properties: {column: 'null'}
-  name: label_3
-  properties: {text: label_to_buy}
-  type: Label
-- layout_properties: {column: 'null'}
-  name: link_1
-  properties: {text: link_recipe}
+- data_bindings:
+  - {code: 'self.item[''link'']', property: url, writeback: false}
+  - {code: 'self.item[''link'']', property: text, writeback: false}
+  layout_properties: {column: XCQMUN}
+  name: link_recipe
+  properties: {text: '"Open Recipe"', url: 'self.item[''link'']'}
   type: Link
 container:
+  data_bindings: []
   properties: {auto_display_data: true, font_size: 12}
   type: DataRowPanel
-custom_component: false
+custom_component: true
 is_package: true
+properties:
+- {default_binding_prop: true, default_value: '', important: true, name: prop, type: string}

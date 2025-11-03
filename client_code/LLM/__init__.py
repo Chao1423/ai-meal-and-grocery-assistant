@@ -37,13 +37,7 @@ class LLM(LLMTemplate):
       meals = anvil.server.call('suggest_meals', ingredients, allergies, vegan_pref)
       print("DEBUG meals:", meals)
 
-      if isinstance(meals, list):
-        # Convert plain URLs to HTML <a> tags for clickable links
-        for meal in meals:
-          if "link" in meal and meal["link"]:
-            url = meal["link"]
-            meal["link"] = f'<a href="{url}" target="_blank">Open Recipe</a>'
-      
+      if isinstance(meals, list):   
         self.data_grid_meals.items = meals
         self.data_grid_1.visible = True
         Notification(f"✅ Generated {len(meals)} meal ideas!").show()
