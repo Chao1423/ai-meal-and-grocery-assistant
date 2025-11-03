@@ -5,7 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
-import http
+import anvil.http
 
 @anvil.server.callable
 def suggest_meals(ingredients):
@@ -35,7 +35,7 @@ Please format your answer clearly using numbered lists.
     ]
   }
 
-  response = http.request(
+  response = anvil.http.request(
     "POST",
     "https://api.deepseek.com/chat/completions",
     headers=headers,

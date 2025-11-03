@@ -8,12 +8,18 @@ from anvil.tables import app_tables
 import anvil.users
 import anvil.server
 
+
 class LLM(LLMTemplate):
   def __init__(self, **properties):
+    # Initialize UI components
     self.init_components(**properties)
+    
+  def text_box_1_pressed_enter(self, **event_args):
+    """Called when the user presses Enter in the TextBox"""
+    self.generate_meal_suggestions()
 
-  def generate_button_click(self, **event_args):
-    """Triggered when the user clicks 'Generate Suggestions'"""
+  def generate_meal_suggestions(self):
+    """Shared logic: call the server function and update the output area"""
     ingredients = self.ingredients_box.text.strip()
     if not ingredients:
       self.output_area.text = "Please enter your available ingredients first!"
@@ -26,3 +32,11 @@ class LLM(LLMTemplate):
       self.output_area.text = result
     except Exception as e:
       self.output_area.text = f"An error occurred: {e}"
+
+  def ingredients_box_pressed_enter(self, **event_args):
+    """Called when the user presses Enter in the text box"""
+    self.generate_meal_suggestions()
+
+  def button_1_click(self, **event_args):
+    """Triggered when the user clicks the Generate Suggestions button"""
+    self.generate_meal_suggestions()
