@@ -35,6 +35,19 @@ components:
       placeholder: Input the ingredients you have here...
       text: ''
     type: TextBox
+  - layout_properties: {grid_position: 'OSVIFX,ZTDUJH'}
+    name: allergies_box
+    properties:
+      margin: [null, null, null, '20']
+      placeholder: Any allergies?
+    type: TextBox
+  - layout_properties: {grid_position: 'LKNESG,JLATMA'}
+    name: vegan_check
+    properties:
+      spacing:
+        padding: [null, 96, null, 43]
+      text: I'm a vegan
+    type: CheckBox
   - event_bindings: {click: button_1_click}
     layout_properties: {grid_position: 'AQABJI,SPQYBZ'}
     name: button_1
@@ -44,8 +57,9 @@ components:
       text: Generate Suggestions
     type: Button
   - components:
-    - name: data_grid_meals
-      properties: {item_template: LLM.RowTemplate1}
+    - layout_properties: {}
+      name: data_grid_meals
+      properties: {item_template: LLM.RowTemplate1, spacing_above: small, spacing_below: small}
       type: RepeatingPanel
     layout_properties: {grid_position: 'OTFHBP,CIMDFI'}
     name: data_grid_1
@@ -53,7 +67,8 @@ components:
       columns:
       - {data_key: food_name, id: JKSDUP, title: Food Name}
       - {data_key: recipe, id: VJQQOR, title: Recipe}
-      - {data_key: to_buy, id: OJLQEN, title: What Else to Buy}
+      - {data_key: to_buy, expand: false, id: OJLQEN, title: What Else to Buy, width: 235.44140625}
+      - {data_key: link, id: XCQMUN, title: Link to the Recipe}
       margin: [null, null, null, '20']
     type: DataGrid
   layout_properties: {slot: default}
@@ -63,4 +78,6 @@ components:
 container:
   properties: {html: '@theme:standard-page.html'}
   type: HtmlTemplate
+custom_component: true
 is_package: true
+properties: []

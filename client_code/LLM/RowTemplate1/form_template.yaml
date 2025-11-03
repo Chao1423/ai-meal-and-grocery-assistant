@@ -1,3 +1,27 @@
-components: []
-container: {type: DataRowPanel}
+components:
+- data_bindings:
+  - {code: 'self.item[''food_name'']', property: tooltip, writeback: false}
+  - {code: 'self.item[''food_name'']', property: text, writeback: false}
+  layout_properties: {}
+  name: label_food_name
+  properties: {text: label_food_name}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''recipe'']', property: text, writeback: false}
+  layout_properties: {column: 'null'}
+  name: label_recipe
+  properties: {text: 'self.item[''recipe'']'}
+  type: Label
+- layout_properties: {column: 'null'}
+  name: label_3
+  properties: {text: label_to_buy}
+  type: Label
+- layout_properties: {column: 'null'}
+  name: link_1
+  properties: {text: link_recipe}
+  type: Link
+container:
+  properties: {auto_display_data: true, font_size: 12}
+  type: DataRowPanel
+custom_component: false
 is_package: true

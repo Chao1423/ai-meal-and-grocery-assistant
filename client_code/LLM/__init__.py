@@ -21,26 +21,33 @@ class LLM(LLMTemplate):
   def generate_meal_suggestions(self):
     """Call the AI and populate the DataGrid."""
     ingredients = self.ingredients_box.text.strip()
+    allergies = self.allergies_box.text.strip()
+    vegan_pref = self.vegan_check.checked
+
     if not ingredients:
       alert("Please enter your available ingredients first!")
       return
 
-    # ✅ Hide the whole grid while loading
     self.data_grid_1.visible = False
     Notification("Generating meal ideas... please wait ⏳").show()
 
+
     try:
-      meals = anvil.server.call('suggest_meals', ingredients)
-      print("DEBUG meals:", meals)  # debug log
+      # ✅ Pass new parameters to the server
+      meals = anvil.server.call('suggest_meals', ingredients, allergies, vegan_pref)
+      print("DEBUG meals:", meals)
 
       if isinstance(meals, list):
-        # ✅ Set items on the RepeatingPanel (the inner component)
+        # Convert plain URLs to HTML <a> tags for clickable links
+        for meal in meals:
+          if "link" in meal and meal["link"]:
+            url = meal["link"]
+            meal["link"] = f'<a href="{url}" target="_blank">Open Recipe</a>'
+      
         self.data_grid_meals.items = meals
-
-        # ✅ Show the DataGrid after filling data
         self.data_grid_1.visible = True
-
         Notification(f"✅ Generated {len(meals)} meal ideas!").show()
+
       else:
         alert("The AI returned an unexpected format.")
     except Exception as e:
@@ -53,6 +60,3 @@ class LLM(LLMTemplate):
   def button_1_click(self, **event_args):
     """Triggered when the user clicks the Generate Suggestions button"""
     self.generate_meal_suggestions()
-
-
-

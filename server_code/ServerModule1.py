@@ -8,13 +8,12 @@ import anvil.server
 import anvil.http
 import json
 
-
 @anvil.server.callable
-def suggest_meals(ingredients):
+def suggest_meals(ingredients, allergies="", vegan_pref=False):
   """Call DeepSeek to get meals, recipes, and extra ingredients as JSON."""
   row = app_tables.config.get(name='DEEPSEEK_API_KEY')
   if not row:
-    return [{"food_name": "Error", "recipe": "Missing API key", "to_buy": ""}]
+    return [{"food_name": "Error", "recipe": "Missing API key", "to_buy": "", "link": ""}]
   api_key = row['value']
 
   headers = {
@@ -22,29 +21,47 @@ def suggest_meals(ingredients):
     "Content-Type": "application/json"
   }
 
-  # ✅ Tell the model to respond in a *strict JSON list* format
+  vegan_note = "The user prefers vegan meals." if vegan_pref else "Non-vegan options are acceptable."
+  allergy_note = f" Avoid ingredients related to these allergies: {allergies}." if allergies else ""
+
   body = {
     "model": "deepseek-chat",
-    "max_tokens": 400,
+    "max_tokens": 500,
     "messages": [
       {"role": "system", "content": "You are a helpful cooking assistant."},
       {"role": "user", "content": f"""
 I currently have these ingredients: {ingredients}.
-Return your answer **strictly as a JSON list** of objects, each with keys:
-- food_name
-- recipe
-- to_buy
+{vegan_note}{allergy_note}
+
+Please respond strictly as **valid JSON**, formatted as a list of objects.
+Each object must have:
+- food_name (string)
+- recipe (short preparation description)
+- to_buy (missing ingredients to purchase)
+- link (a real or placeholder URL for the recipe)
+
 Example:
 [
-  {{"food_name": "Fried Rice", "recipe": "Cook rice with egg and soy sauce", "to_buy": "Green peas"}},
-  {{"food_name": "Tomato Omelette", "recipe": "Mix tomato with egg", "to_buy": "Cheese"}}
+  {{
+    "food_name": "Vegan Fried Rice",
+    "recipe": "Stir-fry rice with tofu and vegetables.",
+    "to_buy": "Soy sauce, sesame oil",
+    "link": "https://www.allrecipes.com/vegan-fried-rice"
+  }},
+  {{
+    "food_name": "Tomato Pasta",
+    "recipe": "Boil pasta and mix with tomato sauce.",
+    "to_buy": "Basil, olive oil",
+    "link": "https://www.allrecipes.com/tomato-pasta"
+  }}
 ]
-Do not include any extra text.
+Do not include any explanations, introductions, or text outside the JSON.
 """}
     ]
   }
 
   try:
+    import anvil.http, json
     response = anvil.http.request(
       "https://api.deepseek.com/chat/completions",
       method="POST",
@@ -54,28 +71,11 @@ Do not include any extra text.
 
     raw = response.get_bytes().decode()
     data = json.loads(raw)
-
-    # The model's content string
     message = data["choices"][0]["message"]["content"].strip()
-
-    # Parse the JSON inside the model's output
     meals = json.loads(message)
     return meals
 
   except Exception as e:
     import traceback
     print(traceback.format_exc())
-    return [{"food_name": "Error", "recipe": str(e), "to_buy": ""}]
-
-# This is a server module. It runs on the Anvil server,
-# rather than in the user's browser.
-#
-# To allow anvil.server.call() to call functions here, we mark
-# them with @anvil.server.callable.
-# Here is an example - you can replace it with your own:
-#
-# @anvil.server.callable
-# def say_hello(name):
-#   print("Hello, " + name + "!")
-#   return 42
-# 
+    return [{"food_name": "Error", "recipe": str(e), "to_buy": "", "link": ""}]
