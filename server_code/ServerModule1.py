@@ -8,16 +8,13 @@ import anvil.server
 import anvil.http
 import json
 
-import anvil.server
-import anvil.http
-from anvil.tables import app_tables
-import json
 
 @anvil.server.callable
 def suggest_meals(ingredients):
+  """Call DeepSeek to get meals, recipes, and extra ingredients as JSON."""
   row = app_tables.config.get(name='DEEPSEEK_API_KEY')
   if not row:
-    return "Error: No API key found in the 'config' table."
+    return [{"food_name": "Error", "recipe": "Missing API key", "to_buy": ""}]
   api_key = row['value']
 
   headers = {
@@ -25,44 +22,50 @@ def suggest_meals(ingredients):
     "Content-Type": "application/json"
   }
 
-  # ✅ correct DeepSeek JSON payload
+  # ✅ Tell the model to respond in a *strict JSON list* format
   body = {
     "model": "deepseek-chat",
-    "max_tokens": 300,      
+    "max_tokens": 400,
     "messages": [
       {"role": "system", "content": "You are a helpful cooking assistant."},
-      {"role": "user", "content": f"I have these ingredients: {ingredients}. Suggest meals and what else to buy."}
+      {"role": "user", "content": f"""
+I currently have these ingredients: {ingredients}.
+Return your answer **strictly as a JSON list** of objects, each with keys:
+- food_name
+- recipe
+- to_buy
+Example:
+[
+  {{"food_name": "Fried Rice", "recipe": "Cook rice with egg and soy sauce", "to_buy": "Green peas"}},
+  {{"food_name": "Tomato Omelette", "recipe": "Mix tomato with egg", "to_buy": "Cheese"}}
+]
+Do not include any extra text.
+"""}
     ]
   }
 
   try:
-    # 👇 serialize body explicitly to ensure valid JSON
     response = anvil.http.request(
       "https://api.deepseek.com/chat/completions",
       method="POST",
       headers=headers,
-      data=json.dumps(body)  # ✅ instead of `json=body`
+      data=json.dumps(body)
     )
 
     raw = response.get_bytes().decode()
-    print("Raw API response:\n", raw)
-
     data = json.loads(raw)
-    return data["choices"][0]["message"]["content"]
 
-  except anvil.http.HttpError as e:
-    # decode and show readable content if possible
-    try:
-      err_msg = e.response.get_bytes().decode()
-    except:
-      err_msg = str(e)
-    return f"HTTP Error {e.status}: {err_msg}"
+    # The model's content string
+    message = data["choices"][0]["message"]["content"].strip()
+
+    # Parse the JSON inside the model's output
+    meals = json.loads(message)
+    return meals
 
   except Exception as e:
     import traceback
     print(traceback.format_exc())
-    return f"Unexpected error: {e}"
-
+    return [{"food_name": "Error", "recipe": str(e), "to_buy": ""}]
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
