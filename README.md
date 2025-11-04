@@ -86,3 +86,17 @@ Anvil has tutorials on:
 The Anvil reference documentation provides comprehensive information on how to use Anvil to build web applications. You can find the documentation [here](https://anvil.works/docs/overview?utm_source=github:app_README).
 
 If you want to get to the basics as quickly as possible, each section of this documentation features a [Quick-Start Guide](https://anvil.works/docs/overview/quickstarts?utm_source=github:app_README).
+
+# **Important** The project is powered by DeepSeek - it will require an API KEY!
+
+If you are running outside Anvil, please create an .env file contains:
+
+print("from dotenv import load_dotenv
+import os
+
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+")
+
+If you are running on Anvil, please put your API KEY by creating a data table named "config"
+![table]
