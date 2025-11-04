@@ -1,5 +1,23 @@
 # About This [Anvil](https://anvil.works/?utm_source=github:app_README) App
 
+# <Important> The project is powered by DeepSeek - it will require an API KEY!
+
+If you are running outside Anvil, please create an .env file contains:
+
+<pre><code class="language-python">
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+</code></pre>
+
+If you are running on Anvil, please put your API KEY by creating a data table named "config" like following: 
+
+![table](table.png)
+
+
+
 ### Build web apps with nothing but Python.
 
 The app in this repository is built with [Anvil](https://anvil.works?utm_source=github:app_README), the framework for building web apps with nothing but Python. You can clone this app into your own Anvil account to use and modify.
@@ -83,17 +101,3 @@ The Anvil reference documentation provides comprehensive information on how to u
 
 If you want to get to the basics as quickly as possible, each section of this documentation features a [Quick-Start Guide](https://anvil.works/docs/overview/quickstarts?utm_source=github:app_README).
 
-# **Important** The project is powered by DeepSeek - it will require an API KEY!
-
-If you are running outside Anvil, please create an .env file contains:
-
-<pre><code class="language-python">
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
-</code></pre>
-
-If you are running on Anvil, please put your API KEY by creating a data table named "config"
-![table](table.png)
