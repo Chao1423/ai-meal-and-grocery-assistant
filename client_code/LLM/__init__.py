@@ -13,6 +13,9 @@ class LLM(LLMTemplate):
   def __init__(self, **properties):
     # Initialize UI components
     self.init_components(**properties)
+    self.image_1.style = {
+      "filter": "brightness(1.1) drop-shadow(0 0 8px rgba(0, 0, 0, 0.1))"
+    }
 
   def text_box_1_pressed_enter(self, **event_args):
     """Called when the user presses Enter in the TextBox"""
@@ -54,3 +57,6 @@ class LLM(LLMTemplate):
   def button_1_click(self, **event_args):
     """Triggered when the user clicks the Generate Suggestions button"""
     self.generate_meal_suggestions()
+
+
+

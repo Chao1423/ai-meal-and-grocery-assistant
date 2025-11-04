@@ -14,11 +14,11 @@ components:
   - components:
     - data_bindings:
       - {code: '300', property: height, writeback: false}
-      layout_properties: {grid_position: 'RNVILI,XOXQVX'}
+      layout_properties: {full_width_row: true, grid_position: 'RNVILI,XOXQVX'}
       name: image_1
       properties:
         display_mode: shrink_to_fit
-        height: 394.03515625
+        height: 308.189453125
         horizontal_align: center
         margin: ['0', null, null, '20']
         source: _/theme/Cook & Gorcery.png
