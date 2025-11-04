@@ -87,13 +87,15 @@ If you want to get to the basics as quickly as possible, each section of this do
 
 If you are running outside Anvil, please create an .env file contains:
 
-<pre> '''
+<pre> 
+'''
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-''' <\pre>
+''' 
+<\pre>
 
 If you are running on Anvil, please put your API KEY by creating a data table named "config"
 ![table](table.png)
