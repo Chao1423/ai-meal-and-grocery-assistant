@@ -15,11 +15,7 @@ Below, you will find:
 
 Go to the [Anvil Editor](https://anvil.works/build?utm_source=github:app_README) (you might need to sign up for a free account) and click on “Clone from GitHub” (underneath the “Blank App” option):
 
-<img src="https://anvil.works/docs/version-control-new-ide/img/git/clone-from-github.png" alt="Clone from GitHub"/>
-
 Enter the URL of this GitHub repository. If you're not yet logged in, choose "GitHub credentials" as the authentication method and click "Connect to GitHub".
-
-<img src="https://anvil.works/docs/version-control-new-ide/img/git/clone-app-from-git.png" alt="Clone App from Git modal"/>
 
 Finally, click "Clone App".
 
@@ -91,13 +87,13 @@ If you want to get to the basics as quickly as possible, each section of this do
 
 If you are running outside Anvil, please create an .env file contains:
 
-'''
+<pre> '''
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-'''
+''' <\pre>
 
 If you are running on Anvil, please put your API KEY by creating a data table named "config"
 ![table](table.png)
