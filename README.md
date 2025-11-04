@@ -1,6 +1,6 @@
 # About This [Anvil](https://anvil.works/?utm_source=github:app_README) App
 
-# <Important> The project is powered by DeepSeek - it will require an API KEY!
+## <Important> The project is powered by DeepSeek - it will require an API KEY!
 
 If you are running outside Anvil, please create an .env file contains:
 
@@ -12,7 +12,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 </code></pre>
 
-If you are running on Anvil, please put your API KEY by creating a data table named "config" like following: 
+If you are running on Anvil, please put your API KEY by creating a data table named "config" as following: 
 
 ![table](table.png)
 
